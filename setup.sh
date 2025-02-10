@@ -34,23 +34,18 @@ install_themes() {
 
 # Main
 main() {
-	clear
-	cat <<- EOF
-		[*] Installing Polybar Themes...
-		
-		[*] Choose Style -
-		[1] Simple
-		[2] Bitmap
-	
-	EOF
+	if [[ -z "$1" ]]; then
+		echo -e "[!] Please provide a style option (1 for Simple, 2 for Bitmap)"
+		exit 1
+	fi
 
-	read -p "[?] Select Option : "
+	echo -e "[*] Installing Polybar Themes..."
 
-	if [[ $REPLY == "1" ]]; then
+	if [[ $1 == "1" ]]; then
 		STYLE='simple'
 		install_fonts
 		install_themes
-	elif [[ $REPLY == "2" ]]; then
+	elif [[ $1 == "2" ]]; then
 		STYLE='bitmap'
 		install_fonts
 		install_themes
@@ -60,4 +55,4 @@ main() {
 	fi
 }
 
-main
+main "$1"
